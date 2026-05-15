@@ -1,0 +1,19 @@
+# Core ML
+torch>=2.0.0
+transformers>=4.35.2
+datasets>=2.14.5
+
+# Retrieval
+faiss-cpu>=1.7.4      # swap for faiss-gpu if CUDA available
+
+# Data
+pandas>=2.1.1
+numpy>=1.24.3
+scikit-learn>=1.3.2
+
+# UI + visualisation
+streamlit>=1.28.1
+plotly>=5.17.0
+
+# Utilities
+tqdm>=4.66.0

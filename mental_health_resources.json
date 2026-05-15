@@ -1,0 +1,226 @@
+{
+  "Anxiety": [
+    {
+      "name": "Box Breathing Technique",
+      "description": "Inhale for 4 counts, hold for 4, exhale for 4, hold for 4. Repeat 5 times. Proven to calm nervous system.",
+      "type": "coping_strategy",
+      "source": "NIMH"
+    },
+    {
+      "name": "Progressive Muscle Relaxation",
+      "description": "Systematically tense and release muscle groups. Reduces physical tension associated with anxiety.",
+      "type": "coping_strategy",
+      "source": "Psychology Today"
+    },
+    {
+      "name": "Anxiety & Depression Association of America (ADAA)",
+      "description": "Free resources, therapist directory, support groups for anxiety disorders.",
+      "type": "organization",
+      "link": "https://adaa.org"
+    },
+    {
+      "name": "Grounding Technique: 5-4-3-2-1",
+      "description": "Name 5 things you see, 4 you can touch, 3 you hear, 2 you smell, 1 you taste. Brings focus to present moment.",
+      "type": "coping_strategy",
+      "source": "SAMHSA"
+    },
+    {
+      "name": "Cognitive Behavioral Therapy (CBT) Workbook",
+      "description": "Self-help exercises to challenge anxious thoughts and build coping skills.",
+      "type": "resource",
+      "source": "NIMH"
+    }
+  ],
+  "Depression": [
+    {
+      "name": "Behavioral Activation",
+      "description": "Schedule small, achievable activities daily (even 10 min walk). Movement combats depression.",
+      "type": "coping_strategy",
+      "source": "NIMH"
+    },
+    {
+      "name": "National Suicide Prevention Lifeline",
+      "description": "24/7 support. Call 988 or text HOME to 741741. Trained counselors available.",
+      "type": "crisis_line",
+      "link": "https://988lifeline.org"
+    },
+    {
+      "name": "Journaling Prompts",
+      "description": "Write 3 things you did today (however small). Helps track positive moments.",
+      "type": "coping_strategy",
+      "source": "Psychology Today"
+    },
+    {
+      "name": "Depression & Bipolar Support Alliance (DBSA)",
+      "description": "Peer support groups, educational resources, local chapter meetings.",
+      "type": "organization",
+      "link": "https://www.dbsalliance.org"
+    },
+    {
+      "name": "Light Therapy",
+      "description": "Exposure to bright light (10k lux) for 20-30 min in morning. Effective for seasonal depression.",
+      "type": "coping_strategy",
+      "source": "NIMH"
+    }
+  ],
+  "Stress": [
+    {
+      "name": "Mindfulness Meditation (10 min daily)",
+      "description": "Apps like Headspace, Calm offer guided sessions. Reduces stress hormones.",
+      "type": "coping_strategy",
+      "source": "SAMHSA"
+    },
+    {
+      "name": "Time Management: Pomodoro Technique",
+      "description": "Work 25 min, break 5 min. Repeat 4 times, then longer break. Prevents overwhelm.",
+      "type": "coping_strategy",
+      "source": "Psychology Today"
+    },
+    {
+      "name": "American Psychological Association (APA) Stress Resources",
+      "description": "Evidence-based stress reduction techniques, research, find therapist.",
+      "type": "organization",
+      "link": "https://www.apa.org/topics/stress"
+    },
+    {
+      "name": "Exercise: 30 min aerobic activity",
+      "description": "Walking, running, swimming. Lowers cortisol, improves mood.",
+      "type": "coping_strategy",
+      "source": "NIMH"
+    },
+    {
+      "name": "Boundary Setting Guide",
+      "description": "Learn to say no. Identify stress sources and limit exposure.",
+      "type": "coping_strategy",
+      "source": "SAMHSA"
+    }
+  ],
+  "Bipolar": [
+    {
+      "name": "Mood Tracking Chart",
+      "description": "Daily log of mood, sleep, energy. Identifies triggers and patterns.",
+      "type": "coping_strategy",
+      "source": "DBSA"
+    },
+    {
+      "name": "Sleep Hygiene Protocol",
+      "description": "Consistent sleep schedule crucial for bipolar stability. Aim for 7-9 hours.",
+      "type": "coping_strategy",
+      "source": "NIMH"
+    },
+    {
+      "name": "Depression & Bipolar Support Alliance (DBSA)",
+      "description": "Specialized support for bipolar disorder, medication management resources.",
+      "type": "organization",
+      "link": "https://www.dbsalliance.org"
+    },
+    {
+      "name": "Professional Treatment: Medication + Therapy",
+      "description": "Bipolar disorder typically requires professional care. Consult psychiatrist/therapist.",
+      "type": "resource",
+      "source": "NIMH"
+    },
+    {
+      "name": "Crisis Planning Worksheet",
+      "description": "Write down warning signs, coping strategies, emergency contacts in advance.",
+      "type": "coping_strategy",
+      "source": "SAMHSA"
+    }
+  ],
+  "Suicidal": [
+    {
+      "name": "National Suicide Prevention Lifeline",
+      "description": "IMMEDIATE HELP: Call 988 (US) or +1-800-273-8255. Available 24/7.",
+      "type": "crisis_line",
+      "link": "https://988lifeline.org"
+    },
+    {
+      "name": "Crisis Text Line",
+      "description": "Text HOME to 741741. Free, confidential crisis counselor support.",
+      "type": "crisis_line",
+      "link": "https://www.crisistextline.org"
+    },
+    {
+      "name": "International Association for Suicide Prevention",
+      "description": "Global resources, helplines, support by country.",
+      "type": "organization",
+      "link": "https://www.iasp.info/resources/Crisis_Centres/"
+    },
+    {
+      "name": "Safety Planning Intervention",
+      "description": "Work with therapist to identify warning signs, coping strategies, support people, professional contacts.",
+      "type": "coping_strategy",
+      "source": "SAMHSA"
+    },
+    {
+      "name": "Emergency Services",
+      "description": "If immediate danger: Call 911 (US) or go to nearest emergency room.",
+      "type": "crisis_line",
+      "link": "https://www.911.gov"
+    }
+  ],
+  "Personality disorder": [
+    {
+      "name": "Dialectical Behavior Therapy (DBT) Skills",
+      "description": "Mindfulness, distress tolerance, emotional regulation, interpersonal effectiveness modules.",
+      "type": "coping_strategy",
+      "source": "SAMHSA"
+    },
+    {
+      "name": "Therapy: DBT or Schema Therapy",
+      "description": "Personality disorders benefit from specialized therapy. Seek trained therapist.",
+      "type": "resource",
+      "source": "NIMH"
+    },
+    {
+      "name": "Self-Compassion Practices",
+      "description": "Treat yourself with kindness during difficult moments. Reduces shame-based reactions.",
+      "type": "coping_strategy",
+      "source": "Psychology Today"
+    },
+    {
+      "name": "NAMI (National Alliance on Mental Illness)",
+      "description": "Resources for personality disorders, find support groups, educational programs.",
+      "type": "organization",
+      "link": "https://www.nami.org"
+    },
+    {
+      "name": "Interpersonal Effectiveness Worksheet",
+      "description": "Practice communication skills in safe environment. Build healthier relationships.",
+      "type": "coping_strategy",
+      "source": "SAMHSA"
+    }
+  ],
+  "Normal": [
+    {
+      "name": "Mental Health Maintenance: Regular Exercise",
+      "description": "3-5 times/week, 30 min. Sustains mood, resilience, cognitive function.",
+      "type": "coping_strategy",
+      "source": "NIMH"
+    },
+    {
+      "name": "Social Connection",
+      "description": "Regular contact with friends/family. Protective factor for mental health.",
+      "type": "coping_strategy",
+      "source": "SAMHSA"
+    },
+    {
+      "name": "Annual Mental Health Check-In",
+      "description": "Even if feeling well, annual therapy session can prevent burnout and build resilience.",
+      "type": "resource",
+      "source": "APA"
+    },
+    {
+      "name": "Sleep & Nutrition Foundation",
+      "description": "7-9 hours sleep, balanced diet with omega-3s. Foundation for mental wellbeing.",
+      "type": "coping_strategy",
+      "source": "NIMH"
+    },
+    {
+      "name": "Stress Prevention: Hobbies & Leisure",
+      "description": "Regular activities you enjoy. Builds resilience and prevents burnout.",
+      "type": "coping_strategy",
+      "source": "Psychology Today"
+    }
+  ]
+}
