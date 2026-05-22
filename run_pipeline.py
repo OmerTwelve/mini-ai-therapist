@@ -18,10 +18,11 @@ from pathlib import Path
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Run all pipeline stages.")
+    parser = argparse.ArgumentParser(description="Run all AI-therapist pipeline stages.")
     parser.add_argument("--data",       required=True,  help="Path to Combined_Data.csv")
     parser.add_argument("--data-dir",   default="data",                    help="Output dir for data artefacts")
     parser.add_argument("--model-dir",  default="models/distilbert_finetuned", help="Output dir for trained model")
+    parser.add_argument("--eval-dir",   default="model_evaluation",        help="Output dir for model evaluation reports")
     parser.add_argument("--resources",  default="mental_health_resources.json", help="Resources JSON")
     parser.add_argument("--skip-train", action="store_true",  help="Skip fine-tuning (use existing model)")
     parser.add_argument("--skip-index", action="store_true",  help="Skip embedding + FAISS build")
@@ -49,6 +50,7 @@ def main():
             train_csv=f"{args.data_dir}/train.csv",
             val_csv=f"{args.data_dir}/val.csv",
             output_dir=args.model_dir,
+            eval_dir=args.eval_dir,
         )
     else:
         print("\n[skip] Fine-tuning skipped — using existing model.")
@@ -71,6 +73,7 @@ def main():
     print("ALL STAGES COMPLETE")
     print(f"  Model     : {args.model_dir}/")
     print(f"  Data      : {args.data_dir}/")
+    print(f"  Evaluation: {args.eval_dir}/")
     print(f"  Resources : {args.resources}")
     print("\nTo launch the UI:")
     print("  streamlit run app.py")
