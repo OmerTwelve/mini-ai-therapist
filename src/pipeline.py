@@ -36,6 +36,8 @@ class PipelineResult:
     predicted_state: str
     confidence: float                        # probability of top class
     all_probabilities: dict                  # {class_name: prob}
+    therapist_reply: str
+    reflection_prompt: str
     resources: list[dict]
     similar_statements: list[SimilarStatement]
 
@@ -159,6 +161,60 @@ class MentalHealthPipeline:
         """Lookup curated resources by mental state label."""
         return self.resources.get(mental_state, [])
 
+    def build_therapist_reply(
+        self, user_statement: str, mental_state: str, confidence: float
+    ) -> tuple[str, str]:
+        """
+        Build a supportive, non-diagnostic response from the classifier signal.
+        This stays template-based so the app is transparent about its limits.
+        """
+        replies = {
+            "Anxiety": (
+                "It sounds like your mind may be carrying a lot of worry right now. "
+                "Try giving yourself permission to slow the moment down before solving everything at once."
+            ),
+            "Depression": (
+                "I hear heaviness in what you shared. When things feel low, even very small actions can count as real care."
+            ),
+            "Stress": (
+                "This sounds like pressure has been building up. It may help to separate what needs attention today from what can wait."
+            ),
+            "Bipolar": (
+                "I hear signs that your mood or energy may feel difficult to steady. "
+                "Tracking sleep, energy, and impulses can help you notice patterns."
+            ),
+            "Suicidal": (
+                "I'm really glad you wrote this down. If you might hurt yourself or feel unsafe, "
+                "please contact emergency support now: call local emergency services, "
+                "or reach out to someone nearby who can stay with you."
+            ),
+            "Personality disorder": (
+                "It sounds like relationships, emotions, or self-image may feel intense right now. "
+                "A grounding step before reacting can create a little more room to choose what comes next."
+            ),
+            "Normal": (
+                "What you shared sounds like something worth paying attention to, even if it does not clearly match a high-risk pattern."
+            ),
+        }
+        prompts = {
+            "Anxiety": "What is one worry you can name, and what evidence do you have that you can handle the next small step?",
+            "Depression": "What is one tiny, doable action that would make the next hour slightly easier?",
+            "Stress": "Which part of this situation is actually yours to control today?",
+            "Bipolar": "How have your sleep, energy, and impulsivity changed over the last few days?",
+            "Suicidal": "Can you move away from anything you could use to hurt yourself and contact a real person right now?",
+            "Personality disorder": "What feeling is strongest right now, and what would help you respond instead of react?",
+            "Normal": "What would feeling supported look like for you right now?",
+        }
+
+        confidence_note = ""
+        if confidence < 0.55:
+            confidence_note = (
+                " I am not very certain about this pattern, so treat this as a gentle starting point rather than a label."
+            )
+
+        reply = replies.get(mental_state, replies["Normal"]) + confidence_note
+        return reply, prompts.get(mental_state, prompts["Normal"])
+
     def run(self, user_statement: str) -> PipelineResult:
         """
         Full pipeline: classify → retrieve → map resources.
@@ -167,11 +223,16 @@ class MentalHealthPipeline:
         label, confidence, all_probs = self.classify(user_statement)
         similar                      = self.retrieve(user_statement)
         resources                    = self.get_resources(label)
+        therapist_reply, reflection_prompt = self.build_therapist_reply(
+            user_statement, label, confidence
+        )
 
         return PipelineResult(
             predicted_state=label,
             confidence=confidence,
             all_probabilities=all_probs,
+            therapist_reply=therapist_reply,
+            reflection_prompt=reflection_prompt,
             resources=resources,
             similar_statements=similar,
         )
