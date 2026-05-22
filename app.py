@@ -1,11 +1,3 @@
-"""
-app.py
-Streamlit UI — wraps MentalHealthPipeline in an interactive web app.
-
-Run:
-    streamlit run app.py
-"""
-
 import streamlit as st
 import pandas as pd
 import plotly.express as px
@@ -14,7 +6,7 @@ from src.pipeline import MentalHealthPipeline, PipelineResult
 
 # ── Page config ───────────────────────────────────────────────────────────────
 st.set_page_config(
-    page_title="Mental Health Support",
+    page_title="AI Therapist",
     page_icon="🧠",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -22,24 +14,11 @@ st.set_page_config(
 
 
 # ── Crisis sidebar (always visible) ──────────────────────────────────────────
-st.sidebar.markdown("""
-## 🆘 Crisis Support
-If you or someone you know is in immediate danger:
-
-| Resource | Contact |
-|----------|---------|
-| **988 Lifeline** (US) | Call or text **988** |
-| **Crisis Text Line** | Text **HOME** to 741741 |
-| **Emergency** | Call **911** |
-| **International** | [IASP Directory](https://www.iasp.info/resources/Crisis_Centres/) |
-
----
-""")
 
 st.sidebar.markdown("""
 ## ℹ️ About
-This tool uses a fine-tuned DistilBERT model to classify mental health
-statements and surface relevant resources.
+This AI-therapist prototype uses a fine-tuned DistilBERT model to detect
+mental-health patterns, generate supportive reflections, and surface relevant resources.
 
 **Not a substitute for professional care.**
 """)
@@ -57,13 +36,13 @@ def load_pipeline() -> MentalHealthPipeline:
 
 
 # ── Header ────────────────────────────────────────────────────────────────────
-st.title("🧠 Mental Health Support System")
+st.title("AI Therapist")
 st.caption(
-    "Share what's on your mind. The system will identify patterns and "
-    "suggest evidence-based coping resources."
+    "Share what's on your mind. The assistant will reflect back what it hears, "
+    "offer a grounding prompt, and suggest support resources."
 )
 st.warning(
-    "⚠️ This tool is for informational purposes only and does not provide "
+    "This educational tool is not a licensed therapist and does not provide "
     "medical advice. Please consult a qualified healthcare provider.",
     icon="⚠️",
 )
@@ -73,23 +52,38 @@ st.divider()
 
 # ── Input ─────────────────────────────────────────────────────────────────────
 user_input = st.text_area(
-    label="What's on your mind?",
-    placeholder="Describe how you're feeling, what you're experiencing, or what's been troubling you…",
+    label="What would you like to talk through?",
+    placeholder="Write about what happened, what you are feeling, or what has been hard lately...",
     height=160,
-    help="The more detail you provide, the more accurate the analysis.",
+    help="The more detail you provide, the more useful the reflection can be.",
 )
 
-analyze_btn = st.button("Analyze & Find Resources", type="primary", use_container_width=False)
+analyze_btn = st.button("Respond", type="primary", use_container_width=False)
 
 
 # ── Result rendering ──────────────────────────────────────────────────────────
+
+def _render_therapist_response(result: PipelineResult):
+    """Therapist-style response shown before diagnostics."""
+    st.subheader("Response")
+    st.markdown(result.therapist_reply)
+
+    if result.predicted_state == "Suicidal":
+        st.error(
+            "If there is immediate danger, call emergency services now. In the US, call or text 988 for crisis support.",
+            icon="🚨",
+        )
+
+    st.markdown("**A question to sit with:**")
+    st.info(result.reflection_prompt)
+
 
 def _render_classification(result: PipelineResult):
     """Top row: predicted state + confidence + probability chart."""
     col_left, col_right = st.columns([1, 2])
 
     with col_left:
-        st.subheader("Classification")
+        st.subheader("Clinical Signal")
 
         # Confidence colour: green ≥ 0.7, orange ≥ 0.5, red < 0.5
         conf_pct = result.confidence
@@ -101,13 +95,13 @@ def _render_classification(result: PipelineResult):
             badge = "🔴"
 
         st.metric(
-            label="Predicted State",
+            label="Detected Pattern",
             value=result.predicted_state,
             delta=f"{badge} {conf_pct:.1%} confidence",
         )
 
     with col_right:
-        st.subheader("Probability Distribution")
+        st.subheader("Model Confidence")
         probs_df = (
             pd.DataFrame.from_dict(
                 result.all_probabilities, orient="index", columns=["probability"]
@@ -137,7 +131,7 @@ def _render_classification(result: PipelineResult):
 
 def _render_resources(result: PipelineResult):
     """Resources section — organised by type."""
-    st.subheader("💡 Recommended Resources")
+    st.subheader("Support Tools")
 
     if not result.resources:
         st.info("No resources available for this category.")
@@ -173,9 +167,9 @@ def _render_resources(result: PipelineResult):
 
 def _render_similar(result: PipelineResult):
     """Similar statements section with category distribution chart."""
-    st.subheader("👥 Semantically Similar Experiences")
+    st.subheader("Related Experiences")
     st.caption(
-        "These are statements from the dataset that are most similar to yours. "
+        "These are anonymized dataset statements with similar language patterns. "
         "Lower distance = higher similarity."
     )
 
@@ -187,7 +181,7 @@ def _render_similar(result: PipelineResult):
 
     with col_list:
         for i, s in enumerate(result.similar_statements, 1):
-            with st.expander(f"#{i} — {s.mental_state}  (dist: {s.distance:.2f})"):
+            with st.expander(f"#{i} — {s.mental_state}  (distance: {s.distance:.2f})"):
                 st.write(s.statement)
 
     with col_chart:
@@ -217,12 +211,15 @@ if analyze_btn:
     else:
         pipeline = load_pipeline()
 
-        with st.spinner("Analyzing…"):
+        with st.spinner("Thinking through your message..."):
             result = pipeline.run(text)
 
         st.divider()
-        _render_classification(result)
+        _render_therapist_response(result)
         st.divider()
         _render_resources(result)
         st.divider()
-        _render_similar(result)
+        with st.expander("Show model details"):
+            _render_classification(result)
+            st.divider()
+            _render_similar(result)
