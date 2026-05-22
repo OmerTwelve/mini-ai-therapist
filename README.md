@@ -3,7 +3,6 @@
 A deep learning-based mental health classification system built with fine-tuned DistilBERT and semantic retrieval using FAISS. This project demonstrates a complete NLP pipeline from data preprocessing through model deployment, achieving 82.7% validation accuracy across 7 mental health categories.
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 > **⚠️ Important Disclaimer**: This is an educational prototype for NLP research and coursework. It is **not** a substitute for professional mental health care and should never be used as the sole basis for clinical decisions. 
 
